@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect 
+from django.shortcuts import get_object_or_404, render, redirect 
 from django.contrib.auth.decorators import login_required
 from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
@@ -92,3 +92,28 @@ def edit_entry(request, entry_id):
 def check_topic_owner(topic, user):
     if topic.owner != user:
         raise Http404('You are not authorized to access this page.')
+
+def delete_entry(request, entry_id):
+    entry = Entry.objects.get(id=entry_id)
+    topic = entry.topic
+    
+    if request.method == 'POST':
+        # Confirm deletion with POST request.
+        entry.delete()
+        return redirect('learning_logs:topic', topic_id=topic.id)
+    
+    context = {'entry': entry, 'topic': topic}
+    return render(request, 'learning_logs/delete_entry.html', context)
+
+def delete_topic(request, topic_id):
+    # Retrieve the topic or return a 404 error if it doesn't exist
+    topic = get_object_or_404(Topic, id=topic_id)
+
+    if request.method == 'POST':
+        topic.delete()
+        return redirect('learning_logs:topics')  # Redirect to the topic list page
+    
+    # If the request method is not POST, render the delete confirmation page
+    context = {'topic': topic}
+    return render(request, 'learning_logs/delete_topic.html', context)
+

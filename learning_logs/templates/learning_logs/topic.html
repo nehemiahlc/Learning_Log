@@ -28,6 +28,12 @@
         {% empty %}
           <p>There are no entries for this topic yet.</p>
         {% endfor %}
+
+        <p>
+            <a href="{% url 'learning_logs:delete_topic' topic.id %}" 
+              class="btn btn-danger">
+                Delete Topic
+            </a></p>
     </ul>
 
 {% endblock content %}
