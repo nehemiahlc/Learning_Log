@@ -6,34 +6,30 @@
 
 {% block content %}
 
-    <p>Topic: {{ topic }}</p>
+    <p><strong>Entries:</strong></p>
+   
+    {% if entries %}
+        <div class="card-group">
+            {% for entry in entries %}
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">{{ entry.date_added|date:'M d, Y H:i' }}</h5>
+                        <small><a href="{% url 'learning_logs:edit_entry' entry.id %}" class="btn btn-sm btn-info">Edit</a></small>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{ entry.text|linebreaks }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>There are no entries for this topic yet.</p>
+    {% endif %}
 
-    <p>Entries:</p>
-    <p>
-        <a href="{% url 'learning_logs:new_entry' topic.id %}">Add new entry</a>
-    </p>
-    
-    <ul>
-        {% for entry in entries %}
-        <div class="card mb-3">
-            <!-- Card header with timestamp and edit link -->
-             <h4 class="card-header">
-            {{ entry.date_added|date:'M d, Y H:i' }}
-             <small><a href="{% url 'learning_logs:edit_entry' entry.id %}">
-            edit entry</a></small>
-            </h4>
-            <!-- Card body with entry text -->
-             <div class="card-body">{{ entry.text|linebreaks }}</div>
-            </div>
-        {% empty %}
-          <p>There are no entries for this topic yet.</p>
-        {% endfor %}
-
-        <p>
-            <a href="{% url 'learning_logs:delete_topic' topic.id %}" 
-              class="btn btn-danger">
-                Delete Topic
-            </a></p>
-    </ul>
+    <hr>
+    <div class="d-flex">
+        <a href="{% url 'learning_logs:delete_topic' topic.id %}" class="btn btn-danger me-2">Delete Topic</a>
+        <a href="{% url 'learning_logs:new_entry' topic.id %}" class="btn btn-primary">Add New Entry</a>
+    </div>
 
 {% endblock content %}

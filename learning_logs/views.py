@@ -93,9 +93,11 @@ def check_topic_owner(topic, user):
     if topic.owner != user:
         raise Http404('You are not authorized to access this page.')
 
+@login_required
 def delete_entry(request, entry_id):
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
+    check_topic_owner(topic, request.user)
     
     if request.method == 'POST':
         # Confirm deletion with POST request.
@@ -105,9 +107,11 @@ def delete_entry(request, entry_id):
     context = {'entry': entry, 'topic': topic}
     return render(request, 'learning_logs/delete_entry.html', context)
 
+@login_required
 def delete_topic(request, topic_id):
     # Retrieve the topic or return a 404 error if it doesn't exist
     topic = get_object_or_404(Topic, id=topic_id)
+    check_topic_owner(topic, request.user)
 
     if request.method == 'POST':
         topic.delete()
