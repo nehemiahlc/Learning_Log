@@ -1,6 +1,6 @@
 **Learning Log**
 
-Learning Log is a Django web application designed to assist users in organizing their learning journey. With Learning Log, users can log topics of interest and make journal entries as they delve into each topic. The application allows users to register, log in, create new topics, add entries, and edit existing entries. **Access Learning Log online [here](#)**.
+Learning Log is a Django web application designed to assist users in organizing their learning journey. With Learning Log, users can log topics of interest and make journal entries as they delve into each topic. The application allows users to register, log in, create new topics, add entries, and edit existing entries. **Access Learning Log online [here](https://main-bvxea6i-3nfaeon5pk5xe.us-3.platformsh.site/)**.
 
 **Features:**
 - User authentication: Users can register and log in securely to access their learning logs.
@@ -14,7 +14,7 @@ Learning Log is a Django web application designed to assist users in organizing 
 3. Run migrations to set up the database: `python manage.py migrate`.
 4. Create a superuser to access the admin panel: `python manage.py createsuperuser`.
 5. Start the development server: `python manage.py runserver`.
-6. **Alternatively, access the application online [here](#).**
+6. **Alternatively, access the application online [here](https://main-bvxea6i-3nfaeon5pk5xe.us-3.platformsh.site/).**
 
 **Dependencies:**
 - Django
